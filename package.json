@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev": "bun dev",
+    "build": "bun build",
+    "start": "bun start",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "prisma:generate": "bun prisma generate",
+    "prisma:migrate": "bun prisma migrate dev",
+    "prisma:studio": "bun prisma studio"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
