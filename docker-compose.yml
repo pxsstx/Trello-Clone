@@ -1,4 +1,22 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trello_clone_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/trello_clone
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    networks:
+      - trello_network
+
   postgres:
     image: postgres:15
     container_name: trello_clone_postgres
@@ -11,16 +29,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:7
-    container_name: trello_clone_redis
-    restart: always
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
+    networks:
+      - trello_network
 
 volumes:
   postgres_data:
-  redis_data:
+
+networks:
+  trello_network:
+    driver: bridge
