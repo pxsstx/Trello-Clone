@@ -179,7 +179,7 @@ export default function Navbar() {
                 <div className="flex justify-between bg-card rounded-[12px] p-[6px] mb-4">
                   <Button
                     className="rounded-[6px] w-[32%]"
-                    variant={menu === "editName" ? "default" : "ghoust"}
+                    variant={menu === "editName" ? "default" : "ghost"}
                     onClick={() => setMenu("editName")}
                   >
                     Edit Name

@@ -365,7 +365,7 @@ export default function BoardPage() {
   return (
     <div
       className="min-h-screen flex flex-col w-full "
-      style={{ backgroundColor: board.backgroundColor || "#ffffff" }}
+      style={{ backgroundColor: board.background || "#ffffff" }}
     >
       <Navbar />
       <main className="py-4 flex justify-between shadow-sm">

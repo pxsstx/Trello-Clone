@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bun dev",
-    "build": "bun build",
-    "start": "bun start",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
     "prisma:generate": "bun prisma generate",
     "prisma:migrate": "bun prisma migrate dev",
     "prisma:studio": "bun prisma studio"

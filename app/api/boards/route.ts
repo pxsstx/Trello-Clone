@@ -40,8 +40,6 @@ export async function POST(req: NextRequest) {
 
     const backgroundColor = formData.get("backgroundColor")?.toString() || null;
 
-    console.log(backgroundColor);
-
     const newBoard = await prisma.boards.create({
       data: {
         title,
