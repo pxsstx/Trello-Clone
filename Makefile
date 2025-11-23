@@ -63,19 +63,19 @@ rebuild: clean build run
 
 # Database migrations
 migrate:
-	docker-compose exec app bun prisma migrate deploy
+	docker-compose exec app bunx prisma migrate deploy
 
 # Generate Prisma client
 generate:
-	docker-compose exec app bun prisma generate
+	docker-compose exec app bunx prisma generate
 
 # Open Prisma Studio
 studio:
-	docker-compose exec app bun prisma studio
+	docker-compose exec app bunx prisma studio
 
 # Database seed (if you have a seed script)
 seed:
-	docker-compose exec app bun prisma db seed
+	docker-compose exec app bunx prisma db seed
 
 # View app logs specifically
 logs-app:
@@ -84,10 +84,6 @@ logs-app:
 # View postgres logs
 logs-db:
 	docker-compose logs -f postgres
-
-# View redis logs
-logs-redis:
-	docker-compose logs -f redis
 
 # Help command
 help:

@@ -1,6 +1,9 @@
 # Use Bun image
 FROM oven/bun:1 AS base
 
+USER root
+RUN apt-get update -y && apt-get install -y openssl
+
 # Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
@@ -13,7 +16,7 @@ COPY prisma ./prisma/
 RUN bun install --frozen-lockfile
 
 # Generate Prisma client
-RUN bun prisma generate
+RUN bunx prisma generate
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -45,7 +48,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/generated/prisma ./generated/prisma
 
 # Set correct permissions
 RUN chown -R nextjs:nodejs /app

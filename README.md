@@ -38,55 +38,55 @@ Alternatively, you can use [Node.js](https://nodejs.org/) (v18 or higher) instea
 
 ### 1. Clone the Repository
 
-\`\`\`bash
+```bash
 git clone https://github.com/yourusername/trello-clone.git
 cd trello-clone
-\`\`\`
+```
 
 ### 2. Install Dependencies
 
-\`\`\`bash
+```bash
 bun install
-\`\`\`
+```
 
 Or with npm:
-\`\`\`bash
+
+```bash
 npm install
-\`\`\`
+```
 
 ### 3. Set Up Environment Variables
 
-Create a \`.env\` file in the root directory:
+Create a `.env` file in the root directory:
 
-\`\`\`bash
+```bash
 cp .env.example .env
-\`\`\`
+```
 
 Update the \`.env\` file with your configuration:
 
-\`\`\`env
+```env
 # Database
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/trello_clone?schema=public"
 
 # JWT
 JWT_SECRET="your-super-secret-jwt-key-change-this-in-production"
 
-# Next.js
-NEXT_PUBLIC_API_URL="http://localhost:3000/api"
-\`\`\`
+```
 
 ### 4. Start the Database
 
 **Option A: Using Docker (Recommended)**
 
-\`\`\`bash
+```bash
 make up
-\`\`\`
+```
 
 Or:
-\`\`\`bash
+
+```bash
 docker-compose up -d
-\`\`\`
+```
 
 **Option B: Local PostgreSQL**
 
@@ -95,25 +95,28 @@ Make sure PostgreSQL is running locally on port 5432.
 ### 5. Set Up the Database
 
 Generate Prisma client:
-\`\`\`bash
+
+```bash
 bun prisma:generate
-\`\`\`
+```
 
 Run migrations:
-\`\`\`bash
+
+```bash
 bun prisma:migrate
-\`\`\`
+```
 
 Seed the database with sample data:
-\`\`\`bash
+
+```bash
 bun prisma:seed
-\`\`\`
+```
 
 ### 6. Start the Development Server
 
-\`\`\`bash
+```bash
 bun dev
-\`\`\`
+```
 
 The app will be available at [http://localhost:3000](http://localhost:3000)
 
@@ -121,27 +124,28 @@ The app will be available at [http://localhost:3000](http://localhost:3000)
 
 After seeding the database, you can log in with:
 
-| Email | Password | Role |
-|-------|----------|------|
-| john@example.com | Password123! | User |
-| jane@example.com | Password123! | User |
+| Email             | Password     | Role  |
+| ----------------- | ------------ | ----- |
+| john@example.com  | Password123! | User  |
+| jane@example.com  | Password123! | User  |
 | admin@example.com | Password123! | Admin |
 
 ## 🐳 Docker Setup
 
 ### Start All Services
 
-\`\`\`bash
+```bash
 make up
-\`\`\`
+```
 
 This will start:
+
 - Next.js app on port 3000
 - PostgreSQL on port 5432
 
 ### Other Docker Commands
 
-\`\`\`bash
+```bash
 make build      # Build Docker images
 make down       # Stop all services
 make logs-app   # View app logs
@@ -151,26 +155,26 @@ make migrate    # Run database migrations
 make seed       # Seed the database
 make studio     # Open Prisma Studio
 make rebuild    # Rebuild and restart
-\`\`\`
+```
 
 For more Docker commands, see [DOCKER.md](./DOCKER.md)
 
 ## 📜 Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| \`bun dev\` | Start development server |
-| \`bun build\` | Build for production |
-| \`bun start\` | Start production server |
-| \`bun lint\` | Run ESLint |
-| \`bun prisma:generate\` | Generate Prisma client |
-| \`bun prisma:migrate\` | Run database migrations |
-| \`bun prisma:studio\` | Open Prisma Studio |
-| \`bun prisma:seed\` | Seed the database |
+| Command                 | Description              |
+| ----------------------- | ------------------------ |
+| \`bun dev\`             | Start development server |
+| \`bun build\`           | Build for production     |
+| \`bun start\`           | Start production server  |
+| \`bun lint\`            | Run ESLint               |
+| \`bun prisma:generate\` | Generate Prisma client   |
+| \`bun prisma:migrate\`  | Run database migrations  |
+| \`bun prisma:studio\`   | Open Prisma Studio       |
+| \`bun prisma:seed\`     | Seed the database        |
 
 ## 📂 Project Structure
 
-\`\`\`
+```
 trello-clone/
 ├── app/                    # Next.js app directory
 │   ├── api/               # API routes
@@ -189,7 +193,7 @@ trello-clone/
 ├── docker-compose.yml    # Docker Compose setup
 ├── Makefile             # Make commands
 └── README.md            # This file
-\`\`\`
+```
 
 ## 🗄️ Database Schema
 
@@ -206,25 +210,26 @@ The application uses the following main models:
 
 ### Run Database Migrations
 
-\`\`\`bash
+```bash
 bun prisma:migrate
-\`\`\`
+```
 
 ### View Database with Prisma Studio
 
-\`\`\`bash
+```bash
 bun prisma:studio
-\`\`\`
+```
 
 This opens a GUI at [http://localhost:5555](http://localhost:5555) to view and edit your database.
 
 ### Reset Database
 
-\`\`\`bash
+```bash
 bun prisma migrate reset
-\`\`\`
+```
 
 This will:
+
 1. Drop the database
 2. Create a new database
 3. Run all migrations
@@ -232,20 +237,21 @@ This will:
 
 ## 🏗️ Building for Production
 
-\`\`\`bash
+```bash
 bun build
 bun start
-\`\`\`
+```
 
 Or with Docker:
 
-\`\`\`bash
+```bash
 docker-compose up -d --build
-\`\`\`
+```
 
 ## 🧪 Testing
 
 The database seed creates sample data for testing:
+
 - 3 users
 - 3 boards with different themes
 - 7 lists across boards
