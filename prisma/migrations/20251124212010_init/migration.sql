@@ -13,6 +13,7 @@ CREATE TABLE "boards" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "owner_id" TEXT NOT NULL,
+    "backgroundColor" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "boards_pkey" PRIMARY KEY ("id")

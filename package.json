@@ -7,13 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "prisma:generate": "bun prisma generate",
-    "prisma:migrate": "bun prisma migrate dev",
-    "prisma:studio": "bun prisma studio",
-    "prisma:seed": "bun prisma/seed.ts"
+    "prisma:generate": "bunx prisma generate",
+    "prisma:migrate": "bunx prisma migrate deploy",
+    "prisma:studio": "bunx prisma studio",
+    "prisma:seed": "bunx prisma/seed.ts"
   },
   "prisma": {
-    "seed": "bun prisma/seed.ts"
+    "seed": "bun prisma/seed.ts",
+    "schema": "./prisma"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

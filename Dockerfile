@@ -1,8 +1,8 @@
 # Use Bun image
-FROM oven/bun:1 AS base
+FROM oven/bun:latest AS base
 
 USER root
-RUN apt-get update -y && apt-get install -y openssl
+RUN apt-get update -y && apt-get install -y openssl wait-for-it -y
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -16,7 +16,7 @@ COPY prisma ./prisma/
 RUN bun install --frozen-lockfile
 
 # Generate Prisma client
-RUN bunx prisma generate
+RUN bunx --bun prisma generate
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -38,26 +38,26 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV DATABASE_URL=postgresql://postgres:postgres@db:5432/trello_clone
 
-# Create a non-root user
+# Create non-root user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy necessary files
+# Copy files from builder
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/generated/prisma ./generated/prisma
 
-# Set correct permissions
+# Set permissions
 RUN chown -R nextjs:nodejs /app
 
 USER nextjs
 
 EXPOSE 3000
-
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["bun", "server.js"]
+# Use entrypoint to wait for DB and run migration
+CMD ["bun","server.js"]
