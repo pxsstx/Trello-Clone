@@ -93,7 +93,6 @@ Make sure you have a `.env` file in the root directory with the necessary enviro
 Example `.env`:
 ```env
 DATABASE_URL=postgresql://postgres:postgres@postgres:5432/trello_clone
-REDIS_URL=redis://redis:6379
 JWT_SECRET=your-secret-key
 # Add other environment variables as needed
 ```
