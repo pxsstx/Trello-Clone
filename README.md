@@ -94,12 +94,6 @@ Make sure PostgreSQL is running locally on port 5432.
 
 ### 5. Set Up the Database
 
-Generate Prisma client:
-
-```bash
-bun prisma:generate
-```
-
 Run migrations:
 
 ```bash

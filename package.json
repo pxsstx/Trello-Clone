@@ -10,7 +10,16 @@
     "prisma:generate": "bunx prisma generate",
     "prisma:migrate": "bunx prisma migrate deploy",
     "prisma:studio": "bunx prisma studio",
-    "prisma:seed": "bunx prisma/seed.ts"
+    "prisma:seed": "bunx prisma/seed.ts",
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "prisma:generate": "bunx prisma generate",
+      "prisma:migrate": "bunx prisma migrate deploy",
+      "prisma:studio": "bunx prisma studio",
+      "prisma:seed": "bunx prisma/seed.ts"
+    }
   },
   "prisma": {
     "seed": "bun prisma/seed.ts",
