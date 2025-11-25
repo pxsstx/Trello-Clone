@@ -1,7 +1,7 @@
 .PHONY: build run stop clean logs shell restart dev
 
 # Variables
-IMAGE_NAME=trello-clone
+IMAGE_NAME=trello-clone-app
 CONTAINER_NAME=trello-clone-app
 PORT=3000
 

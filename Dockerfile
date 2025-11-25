@@ -8,6 +8,8 @@ RUN apt-get update -y && apt-get install -y openssl wait-for-it -y
 FROM base AS deps
 WORKDIR /app
 
+ENV DATABASE_URL=postgresql://postgres:postgres@db:5432/trello_clone
+
 # Copy package files
 COPY package.json bun.lock* ./
 COPY prisma ./prisma/
