@@ -1,6 +1,11 @@
 pipeline {
     agent any
     
+    triggers {
+        // Poll SCM every 2 minutes as fallback if webhook fails
+        pollSCM('H/2 * * * *')
+    }
+    
     environment {
         COMPOSE_PROJECT_NAME = 'trello_clone'
         BUN_INSTALL = "${HOME}/.bun"
