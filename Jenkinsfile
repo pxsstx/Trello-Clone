@@ -7,6 +7,8 @@ pipeline {
 
     environment {
         BUILD_TAG = "${env.BUILD_NUMBER}"
+        // Add Homebrew Docker path for Jenkins
+        PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:${env.PATH}"
     }
 
     parameters {
@@ -31,9 +33,6 @@ pipeline {
             }
         }
 
-        /* ---------------------------------------------------------
-         * LOAD SECRETS FROM JENKINS CREDENTIALS
-         * --------------------------------------------------------- */
         stage('Load Secrets') {
             steps {
                 script {
@@ -41,13 +40,11 @@ pipeline {
                         string(credentialsId: 'DATABASE_URL', variable: 'DB_URL'),
                         string(credentialsId: 'JWT_SECRET', variable: 'JWT_SECRET_VALUE')
                     ]) {
-
                         writeFile file: '.env', text: """\
 DATABASE_URL=${env.DB_URL}
 JWT_SECRET=${env.JWT_SECRET_VALUE}
 NODE_ENV=production
 """.stripIndent()
-
                         echo "Environment secrets loaded -> .env created"
                     }
                 }
@@ -103,7 +100,6 @@ NODE_ENV=production
             steps {
                 script {
                     sh 'sleep 15'
-
                     sh '''
                         timeout 60 bash -c 'until curl -f http://localhost:3000; do sleep 2; done' || exit 1
                     '''
