@@ -4,7 +4,7 @@ pipeline {
     environment {
         COMPOSE_PROJECT_NAME = 'trello_clone'
         BUN_INSTALL = "${HOME}/.bun"
-        PATH = "${BUN_INSTALL}/bin:${PATH}"
+        PATH = "${BUN_INSTALL}/bin:/opt/homebrew/bin:${PATH}" // Add Homebrew bin for Docker
     }
     
     stages {
@@ -28,8 +28,8 @@ pipeline {
                         string(credentialsId: 'JWT_SECRET', variable: 'JWT_SECRET')
                     ]) {
                         writeFile file: '.env', text: """
-DATABASE_URL=${env.DATABASE_URL}
-JWT_SECRET=${env.JWT_SECRET}
+DATABASE_URL=${DATABASE_URL}
+JWT_SECRET=${JWT_SECRET}
 NODE_ENV=production
 """
                         echo "Environment secrets loaded -> .env created"
@@ -52,7 +52,7 @@ NODE_ENV=production
         
         stage('Install Dependencies') {
             steps {
-                sh '${HOME}/.bun/bin/bun install'
+                sh '${BUN_INSTALL}/bin/bun install'
             }
         }
         
@@ -82,7 +82,7 @@ NODE_ENV=production
         stage('Prisma Migrate') {
             steps {
                 sh '''
-                    export PATH=${HOME}/.bun/bin:$PATH
+                    export PATH=${BUN_INSTALL}/bin:$PATH
                     bunx prisma migrate deploy
                 '''
             }
@@ -91,7 +91,7 @@ NODE_ENV=production
         stage('Build Next.js') {
             steps {
                 sh '''
-                    export PATH=${HOME}/.bun/bin:$PATH
+                    export PATH=${BUN_INSTALL}/bin:$PATH
                     bun run build
                 '''
             }
@@ -102,8 +102,6 @@ NODE_ENV=production
                 script {
                     echo "Deploying application..."
                     sh 'docker compose up -d --build app'
-                    
-                    echo "Deployment complete!"
                     sh 'docker compose ps'
                 }
             }
@@ -138,7 +136,7 @@ NODE_ENV=production
                 sh 'docker image prune -f'
                 
                 echo "Container logs (last 30 lines):"
-                sh 'docker compose logs --tail=30'
+                sh 'docker compose logs --tail=30 || true'
             }
         }
         
